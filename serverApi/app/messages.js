@@ -12,7 +12,12 @@ router.post('/', (req, res) => {
     return res.status(400).send({error: 'Data not valid'});
   }
 
-  const post = { message: req.body.message };
+  const date = new Date();
+
+  const post = {
+    message: req.body.message,
+    datetime: date.toISOString()
+  };
 
   if (req.body.author) post.auhtor = req.body.author;
 

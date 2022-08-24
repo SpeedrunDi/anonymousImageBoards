@@ -1,7 +1,5 @@
-const App = () => (
-  <div>
+import Messages from "./containers/Messages/Messages";
 
-  </div>
-);
+const App = () => <Messages/>
 
 export default App;
