@@ -34,11 +34,12 @@ export const postMessage = data => {
   return async dispatch => {
     try {
       dispatch(postMessageRequest());
-      await axios.post(apiUrl, data);
+      await axios.post(apiUrl + '/messages', data);
 
       dispatch(postMessageSuccess());
     } catch (e) {
       dispatch(postMessageFailure(e.message));
+      throw e;
     }
   };
 };

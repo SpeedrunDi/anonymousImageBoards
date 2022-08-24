@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import {Box, Container, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {getMessages} from "../../store/actions";
+import {getMessages, postMessage} from "../../store/actions";
 import Message from "../../components/Message/Message";
+import InputForm from "../../components/InputForm/InputForm";
 
 const Messages = () => {
  const dispatch = useDispatch();
@@ -12,15 +13,21 @@ const Messages = () => {
     dispatch(getMessages());
   }, [dispatch]);
 
+  const onPostMessage = async formData => {
+    await dispatch(postMessage(formData));
+    dispatch(getMessages());
+  };
+
   return (
     <Container>
       <Typography variant="h3" textAlign="center">
         Anonymous
       </Typography>
       <Box
-        maxWidth="720px" height="520px"
+        maxWidth="744px" height="520px"
         margin="50px auto 0" padding="15px"
-        border="7px ridge white"
+        border="3px solid gray"
+        sx={{overflowY: "scroll"}}
       >
         {messages.length !== 0
           ? messages.map(message => (
@@ -31,6 +38,7 @@ const Messages = () => {
           </Typography>
         }
       </Box>
+      <InputForm onPostMessage={onPostMessage}/>
     </Container>
   );
 };

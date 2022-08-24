@@ -1,5 +1,6 @@
 import React from 'react';
 import {Grid, Typography} from "@mui/material";
+import {apiUrl} from "../../config";
 
 const Message = ({message}) => {
   return (
@@ -10,7 +11,7 @@ const Message = ({message}) => {
     >
       {message.image ?
         <Grid width="30%">
-          <img src={message.image} alt=""/>
+          <img src={apiUrl + '/uploads/' + message.image} alt="" style={{width: "90%"}}/>
         </Grid> :
         null
       }
