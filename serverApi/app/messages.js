@@ -34,7 +34,7 @@ router.post('/', upload.single('image'), (req, res) => {
     datetime: date.toISOString()
   };
 
-  if (req.body.author) message.auhtor = req.body.author;
+  if (req.body.author) message.author = req.body.author;
 
   if (req.file) message.image = req.file.filename;
 

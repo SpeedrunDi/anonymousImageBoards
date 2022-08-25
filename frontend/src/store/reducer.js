@@ -1,7 +1,7 @@
 import {
   GET_MESSAGES_FAILURE,
   GET_MESSAGES_REQUEST,
-  GET_MESSAGES_SUCCESS,
+  GET_MESSAGES_SUCCESS, ON_ACTION_MODAL,
   POST_MESSAGE_FAILURE,
   POST_MESSAGE_REQUEST,
   POST_MESSAGE_SUCCESS
@@ -9,12 +9,15 @@ import {
 
 const initialState = {
   messages: [],
+  show: false,
   loading: false,
   error: null
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ON_ACTION_MODAL:
+      return {...state, show: action.payload};
     case GET_MESSAGES_REQUEST:
       return {...state, loading: true, error: null};
     case GET_MESSAGES_SUCCESS:

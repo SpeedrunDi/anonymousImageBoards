@@ -1,6 +1,10 @@
 import axios from "axios";
 import {apiUrl} from "../config";
 
+export const ON_ACTION_MODAL = 'ON_HANDLER_MODAL';
+
+export const onActionModal = type => ({type: ON_ACTION_MODAL, payload: type});
+
 export const GET_MESSAGES_REQUEST = 'GET_MESSAGES_REQUEST';
 export const GET_MESSAGES_SUCCESS = 'GET_MESSAGES_SUCCESS';
 export const GET_MESSAGES_FAILURE = 'GET_MESSAGES_FAILURE';
@@ -23,7 +27,12 @@ export const getMessages = () => {
       dispatch(getMessagesRequest());
       const {data} = await axios(apiUrl + '/messages');
 
-      dispatch(getMessagesSuccess(data));
+      let newData = [];
+      if (data) {
+        newData = data;
+      }
+
+      dispatch(getMessagesSuccess(newData.reverse()));
     } catch (e) {
       dispatch(getMessagesFailure(e.message));
     }

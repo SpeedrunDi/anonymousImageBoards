@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, TextField, Typography} from "@mui/material";
+import FileInput from "../UI/Form/FileInput/FileInput";
 
-const InputForm = ({onPostMessage}) => {
+const InputForm = ({onPostMessage, onOpenModal}) => {
   const [state, setState] = useState({
     author: "",
     message: "",
@@ -33,45 +34,64 @@ const InputForm = ({onPostMessage}) => {
     });
 
     await onPostMessage(formData);
-    setState({
-      author: "",
-      message: "",
-      image: ""
-    });
+
+    onOpenModal();
   };
 
   return (
-    <Grid maxWidth="780px" padding="30px 15px 10px" margin="0 auto" border="3px solid gray" borderTop="none">
+    <Grid maxWidth="780px" padding="30px 15px 10px" margin="0 auto" border="3px solid gray" >
+      <Typography variant="h5" textAlign="center" marginBottom="30px">
+        Add new massage
+      </Typography>
       <form autoComplete="off" onSubmit={onSubmit}>
-        <Grid container justifyContent="space-around" marginBottom="40px">
-          <TextField
-            label="Name" name="author"
-            variant="outlined" color="success"
-            onChange={inputChange}
-            value={state.author}
-          />
-          <TextField
-            type="file" name="image"
-            color="success"
-            onChange={fileChange}
-          />
+        <Grid marginBottom="40px">
+          <Grid item marginBottom="20px">
+            <TextField
+              fullWidth
+              label="Name"
+              name="author"
+              variant="outlined"
+              color="success"
+              onChange={inputChange}
+              value={state.author}
+            />
+          </Grid>
+          <Grid item>
+            <FileInput
+              label="Image"
+              name="image"
+              onChange={fileChange}
+            />
+          </Grid>
         </Grid>
-        <Grid>
+        <Grid item>
           <TextField
-            label="Message" name="message"
-            fullWidth multiline required
-            rows={3} color="success"
+            label="Message"
+            name="message"
+            fullWidth
+            multiline
+            required
+            rows={3}
+            color="success"
             onChange={inputChange}
             value={state.message}
           />
         </Grid>
-        <Button
-          type="submit"
-          variant="outlined" color="success"
-          sx={{margin: "20px 10px 0 auto", display: "block"}}
-        >
-          Send
-        </Button>
+        <Grid container justifyContent="space-around" paddingY="20px">
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={onOpenModal}
+          >
+            Back
+          </Button>
+          <Button
+            type="submit"
+            variant="outlined" color="success"
+          >
+            Send
+          </Button>
+        </Grid>
       </form>
     </Grid>
   );
